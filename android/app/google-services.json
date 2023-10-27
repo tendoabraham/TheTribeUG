@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802888416190",
+    "project_id": "the-tribe-ug",
+    "storage_bucket": "the-tribe-ug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802888416190:android:129e696ea1ed6fa75ed7ef",
+        "android_client_info": {
+          "package_name": "com.thetribeug.The_Tribe_UG"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWoF3zZVi10eDw6soCUvyzpEsnK-_h4Tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

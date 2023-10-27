@@ -14,9 +14,17 @@ import 'Events.dart';
 import 'Feed/Feed.dart';
 import 'article.dart';
 import 'database_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
+
+  //1
+WidgetsFlutterBinding.ensureInitialized();
+//2
+await Firebase.initializeApp();
+
 
   Hive // Initialize Hive for Flutter
     .registerAdapter(ArticleAdapter());
