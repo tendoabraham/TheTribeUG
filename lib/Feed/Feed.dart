@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hive/hive.dart';
@@ -8,7 +7,6 @@ import 'package:share/share.dart';
 import 'package:the_tribe_ug/Feed/feed_loading.dart';
 import 'package:the_tribe_ug/Feed/loading.dart';
 import 'package:http/http.dart' as http;
-import 'package:the_tribe_ug/Feed/posts_auto_slide.dart';
 import '../article.dart';
 import 'ad_image_slider.dart';
 import 'articles_model.dart';
@@ -215,7 +213,7 @@ class _feedState extends State<feed> {
     }
 
     return isLoading
-        ? Loading(child: const HomeLoading()) // Display a loading indicator
+        ? const Loading(child: HomeLoading()) // Display a loading indicator
         : SingleChildScrollView(
             // Wrap the entire content in SingleChildScrollView
             child: Column(
@@ -307,7 +305,7 @@ class _feedState extends State<feed> {
                                     left: 0,
                                     right: 0,
                                     child: Container(
-                                      padding: EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -394,7 +392,7 @@ String formatWordPressDate(String wordpressDate) {
 class PostDetailsScreen extends StatefulWidget {
   final Post post;
 
-  PostDetailsScreen({required this.post});
+  const PostDetailsScreen({super.key, required this.post});
 
   @override
   _PostDetailsScreenState createState() => _PostDetailsScreenState();

@@ -5,7 +5,7 @@ import 'package:shimmer/shimmer.dart';
 class Loading extends StatelessWidget {
 final Widget child;
 
-Loading({required this.child});
+const Loading({super.key, required this.child});
 
 @override
 Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ Widget build(BuildContext context) {
 
 Widget _buildSkeleton() {
   return Shimmer.fromColors(
-    baseColor: Colors.white!,
+    baseColor: Colors.white,
     highlightColor: Colors.grey[500]!,
     child: child,
   );

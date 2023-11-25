@@ -8,8 +8,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:the_tribe_ug/Radio.dart';
+import 'package:the_tribe_ug/Screens/signup_screen.dart';
 import 'package:the_tribe_ug/Tv.dart';
-import 'package:the_tribe_ug/splash_screen.dart';
 import 'Events.dart';
 import 'Feed/Feed.dart';
 import 'article.dart';
@@ -35,10 +35,12 @@ await Firebase.initializeApp();
   // Open the Hive box for 'articles'
   await Hive.openBox<Article>('articles');
 
-  runApp(MyApp()); // Your app's widget tree
+  runApp(const MyApp()); // Your app's widget tree
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Define your custom primary color
@@ -61,13 +63,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: customPrimaryColor,
       ),
-      home: SplashScreen(),
+      //home: SplashScreen(),
       // home: MainScreen(),
+      // home: const LoginScreen(),
+      home: const SignupScreen(),
     );
   }
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -78,10 +84,10 @@ class _MainScreenState extends State<MainScreen> {
 
 
   final List<Widget> _pages = [
-    tribeTv(),
-    feed(),
-    tribeRadio(),
-    Events()
+    const tribeTv(),
+    const feed(),
+    const tribeRadio(),
+    const Events()
     // Add more screens here
   ];
 
@@ -214,9 +220,9 @@ class _MyDrawerState extends State<MyDrawer> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text("Tendo Abraham",
+                  const Text("Tendo Abraham",
                     // "$firstName $lastName",
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontFamily: "Myriad Pro"
@@ -343,21 +349,21 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                 Navigator.pop(context);
                 _getFromCamera();
               },
-              child: Text("Take Photo"),
+              child: const Text("Take Photo"),
             ),
             TextButton(
               onPressed: () async {
                 Navigator.pop(context);
                 _getFromGallery();
               },
-              child: Text("Choose from Gallery"),
+              child: const Text("Choose from Gallery"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 // _sharedPref.setIsListeningToFocusState(true);
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
           ],
         );
@@ -389,7 +395,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
         sourcePath: filePath,
         maxWidth: 1080,
         maxHeight: 1080,
-        aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0)
+        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0)
     )) as File;
 
     customerDPFile = croppedImage;

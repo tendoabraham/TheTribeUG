@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AutoSlideScrollView extends StatefulWidget {
   final List<Map<String, String?>> news;
 
-  AutoSlideScrollView({required this.news});
+  const AutoSlideScrollView({super.key, required this.news});
 
   @override
   _AutoSlideScrollViewState createState() => _AutoSlideScrollViewState();
@@ -13,7 +13,7 @@ class AutoSlideScrollView extends StatefulWidget {
 class _AutoSlideScrollViewState extends State<AutoSlideScrollView> {
   late PageController _pageController;
   int _currentPage = 0;
-  final _pageDuration = Duration(seconds: 5); // Adjust the slide duration as needed
+  final _pageDuration = const Duration(seconds: 5); // Adjust the slide duration as needed
   Timer? _timer;
 
   @override
@@ -32,7 +32,7 @@ class _AutoSlideScrollViewState extends State<AutoSlideScrollView> {
       }
       _pageController.animateToPage(
         _currentPage,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeOut,
       );
     });
