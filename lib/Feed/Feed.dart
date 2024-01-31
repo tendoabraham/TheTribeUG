@@ -36,7 +36,7 @@ class _feedState extends State<feed> {
 
   void _handleScroll() {
     // When the user scrolls up, show the floating button
-    if (_scrollController.offset > 100.0) {
+    if (_scrollController.offset > 2000.0) {
       setState(() {
         _showFloatingButton = true;
       });
@@ -63,7 +63,7 @@ class _feedState extends State<feed> {
         final List<Post> fetchedPosts = jsonData.map((data) {
           final List<dynamic> ogImageList = data['yoast_head_json']['og_image'];
           final String imageUrl =
-              ogImageList.isNotEmpty ? ogImageList[0]['url'] : '';
+          ogImageList.isNotEmpty ? ogImageList[0]['url'] : '';
 
           return Post(
             id: data['id'],
@@ -156,7 +156,7 @@ class _feedState extends State<feed> {
       final List<Post> fetchedPosts = jsonData.map((data) {
         final List<dynamic> ogImageList = data['yoast_head_json']['og_image'];
         final String imageUrl =
-            ogImageList.isNotEmpty ? ogImageList[0]['url'] : '';
+        ogImageList.isNotEmpty ? ogImageList[0]['url'] : '';
 
         return Post(
           id: data['id'],
@@ -214,157 +214,177 @@ class _feedState extends State<feed> {
       greeting = 'Good Evening!';
     }
 
-    return isLoading
-        ? Loading(child: const HomeLoading()) // Display a loading indicator
-        : SingleChildScrollView(
-            // Wrap the entire content in SingleChildScrollView
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                // Greeting
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: Text(
-                    greeting,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "BebasNeue"),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                // Horizontal ScrollView for Posts
-                const SizedBox(
-                  height: 200,
-                  child: SlideshowPage(),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                // "Articles" Title
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text(
-                    'ARTICLES',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "BebasNeue",
-                    ),
-                  ),
-                ),
+    void _scrollToTop() {
+      _scrollController.animateTo(
+        0.0,
+        duration: Duration(seconds: 1),
+        curve: Curves.easeOut,
+      );
+    }
 
-                // ListView.builder for Articles
-                ListView.builder(
-                  physics:
-                      const NeverScrollableScrollPhysics(), // Disable scrolling
-                  shrinkWrap:
-                      true, // Important: Use shrinkWrap to enable scrolling within a ListView
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    final post = posts[index];
-                    // Build and return the widgets for each article
-                    return GestureDetector(
-                      onTap: () {
-                        // Navigate to a new widget to display full post details
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PostDetailsScreen(post: post),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          elevation: 4,
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 300,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(post.imageUrl),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: const BorderRadius.vertical(
-                                        top: Radius.circular(10.0),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: Container(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            margin: const EdgeInsets.only(
-                                                right: 200),
-                                            height: 5,
-                                            color: Colors.red,
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            removeHtmlFormatting(post.title),
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.normal,
-                                              fontFamily: "BebasNeue",
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 10),
-                                child: Text(
-                                  removeHtmlFormatting(post.desc),
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: "Quicksand",
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+    return Scaffold(
+      floatingActionButton: _showFloatingButton
+          ? FloatingActionButton(
+        onPressed: () {
+          _scrollToTop();
+        },
+        child: Icon(Icons.arrow_upward),
+        backgroundColor: Colors.red, // Customize the button's appearance
+      )
+          : null,
+      body: isLoading
+          ? Loading(child: const HomeLoading()) // Display a loading indicator
+          : SingleChildScrollView(
+        controller: _scrollController,
+        // Wrap the entire content in SingleChildScrollView
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            // Greeting
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                greeting,
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "BebasNeue"),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            // Horizontal ScrollView for Posts
+            const SizedBox(
+              height: 200,
+              child: SlideshowPage(),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            // "Articles" Title
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'ARTICLES',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "BebasNeue",
+                ),
+              ),
+            ),
+
+            // ListView.builder for Articles
+            ListView.builder(
+              physics:
+              const NeverScrollableScrollPhysics(), // Disable scrolling
+              shrinkWrap:
+              true, // Important: Use shrinkWrap to enable scrolling within a ListView
+              itemCount: posts.length,
+              itemBuilder: (context, index) {
+                final post = posts[index];
+                // Build and return the widgets for each article
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to a new widget to display full post details
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PostDetailsScreen(post: post),
                       ),
                     );
                   },
-                ),
-              ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      elevation: 4,
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(post.imageUrl),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            right: 200),
+                                        height: 5,
+                                        color: Colors.red,
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        removeHtmlFormatting(post.title),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.normal,
+                                          fontFamily: "BebasNeue",
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 10),
+                            child: Text(
+                              removeHtmlFormatting(post.desc),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: "Quicksand",
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -444,7 +464,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
               Share.share('Check out this amazing article: $shareLink');
             },
             child:
-                const Icon(Icons.share_outlined, size: 26, color: Colors.red),
+            const Icon(Icons.share_outlined, size: 26, color: Colors.red),
           ),
           const SizedBox(
             width: 15,

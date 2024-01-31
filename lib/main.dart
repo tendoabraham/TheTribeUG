@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:the_tribe_ug/Radio.dart';
 import 'package:the_tribe_ug/Tv.dart';
 import 'package:the_tribe_ug/splash_screen.dart';
-import 'Events.dart';
+import 'Events/Events.dart';
 import 'Feed/Feed.dart';
 import 'article.dart';
 import 'database_helper.dart';
