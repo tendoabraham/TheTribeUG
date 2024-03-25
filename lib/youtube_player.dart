@@ -8,7 +8,7 @@ class YouTubeVideoWidget extends StatelessWidget {
   final String videoTitle;
   final String videoDescription;
 
-  YouTubeVideoWidget({
+  const YouTubeVideoWidget({super.key, 
     required this.videoUrl,
     required this.videoTitle,
     required this.videoDescription,
@@ -23,7 +23,7 @@ class YouTubeVideoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final videoId = extractVideoId(videoUrl);
 
-    final YoutubePlayerController _controller = YoutubePlayerController(
+    final YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
         forceHD: true,
@@ -66,7 +66,7 @@ class YouTubeVideoWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 YoutubePlayer(
-                  controller: _controller,
+                  controller: controller,
                   showVideoProgressIndicator: true,
                 ),
                 Container(

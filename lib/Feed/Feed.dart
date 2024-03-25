@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hive/hive.dart';
@@ -8,7 +7,6 @@ import 'package:share/share.dart';
 import 'package:the_tribe_ug/Feed/feed_loading.dart';
 import 'package:the_tribe_ug/Feed/loading.dart';
 import 'package:http/http.dart' as http;
-import 'package:the_tribe_ug/Feed/posts_auto_slide.dart';
 import '../article.dart';
 import 'ad_image_slider.dart';
 import 'articles_model.dart';
@@ -214,6 +212,7 @@ class _feedState extends State<feed> {
       greeting = 'Good Evening!';
     }
 
+<<<<<<< HEAD
     void _scrollToTop() {
       _scrollController.animateTo(
         0.0,
@@ -274,6 +273,51 @@ class _feedState extends State<feed> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   fontFamily: "BebasNeue",
+=======
+    return isLoading
+        ? const Loading(child: HomeLoading()) // Display a loading indicator
+        : SingleChildScrollView(
+            // Wrap the entire content in SingleChildScrollView
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                // Greeting
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text(
+                    greeting,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "BebasNeue"),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                // Horizontal ScrollView for Posts
+                const SizedBox(
+                  height: 200,
+                  child: SlideshowPage(),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                // "Articles" Title
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    'ARTICLES',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "BebasNeue",
+                    ),
+                  ),
+>>>>>>> 9b9f85786ffedee49907500f8b66879da595b2ac
                 ),
               ),
             ),
@@ -316,8 +360,45 @@ class _feedState extends State<feed> {
                                     image: NetworkImage(post.imageUrl),
                                     fit: BoxFit.cover,
                                   ),
+<<<<<<< HEAD
                                   borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(10.0),
+=======
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                right: 200),
+                                            height: 5,
+                                            color: Colors.red,
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Text(
+                                            removeHtmlFormatting(post.title),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.normal,
+                                              fontFamily: "BebasNeue",
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+>>>>>>> 9b9f85786ffedee49907500f8b66879da595b2ac
                                   ),
                                 ),
                               ),
@@ -414,7 +495,7 @@ String formatWordPressDate(String wordpressDate) {
 class PostDetailsScreen extends StatefulWidget {
   final Post post;
 
-  PostDetailsScreen({required this.post});
+  const PostDetailsScreen({super.key, required this.post});
 
   @override
   _PostDetailsScreenState createState() => _PostDetailsScreenState();

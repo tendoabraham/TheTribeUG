@@ -5,7 +5,13 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   cloud_firestore
   file_selector_windows
+<<<<<<< HEAD
   firebase_core
+=======
+  firebase_auth
+  firebase_core
+  firebase_storage
+>>>>>>> 9b9f85786ffedee49907500f8b66879da595b2ac
   flutter_tts
   smart_auth
   url_launcher_windows

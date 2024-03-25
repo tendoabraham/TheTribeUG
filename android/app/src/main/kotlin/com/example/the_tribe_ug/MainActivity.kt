@@ -1,4 +1,4 @@
-package com.example.the_tribe_ug
+package com.thetribeug.The_Tribe_UG
 
 import io.flutter.embedding.android.FlutterActivity
 

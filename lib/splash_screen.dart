@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -6,6 +5,8 @@ import 'main.dart';
 
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Navigate to another widget (replace MyHomeWidget with your target widget)
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => MainScreen(),
+        builder: (context) => const MainScreen(),
       ),
     );
   }
